@@ -1,5 +1,5 @@
-from tkinter import *
-from tkinter import ttk
+from Tkinter import *
+import ttk
 
 def calculate(*args):
 	try:
@@ -20,6 +20,15 @@ def calculate(*args):
 	except ValueError:
 		pass
 
+def reset():
+	distance.set(clear)
+	elevation.set(clear)
+	elevud.set(clear)
+	wind.set(clear)
+	windfb.set(clear)
+	newDistance.set(clear)
+	distance_entry.focus_set()
+
 
 root = Tk()
 root.title("TGC Disctance Calculator")
@@ -35,6 +44,7 @@ elevud = StringVar()
 wind = StringVar()
 windfb = StringVar()
 newDistance = StringVar()
+clear = " "
 
 distance_entry = ttk.Entry(mainframe, width = 7, textvariable = distance)
 distance_entry.grid(column = 2, row = 1, sticky = (W, E))
@@ -53,9 +63,10 @@ ttk.Label(mainframe, text = "Elevation").grid(column = 1, row = 2, sticky = W)
 ttk.Label(mainframe, text = "Up or Down [u/d]").grid(column = 1, row = 3, sticky = W)
 ttk.Label(mainframe, text = "Wind Speed").grid(column = 1, row = 4, sticky = W)
 ttk.Label(mainframe, text = "Wind Direction [f/b]").grid(column = 1, row = 5, sticky = W)
+ttk.Button(mainframe, text = "Reset", command = reset).grid(column = 1, row = 6, sticky = W)
 ttk.Button(mainframe, text = "Calculate", command = calculate).grid(column = 2, row = 6, sticky = W)
 ttk.Label(mainframe, text = "Corrected Distance ").grid(column = 1, row = 7, sticky = W)
-ttk.Label(mainframe, textvariable = newDistance).grid(column = 2, row = 7, sticky = E)
+ttk.Label(mainframe, textvariable = newDistance).grid(column = 2, row = 7, sticky = W)
 
 for child in mainframe.winfo_children():  child.grid_configure(padx = 5, pady = 5)
 
@@ -63,4 +74,3 @@ distance_entry.focus()
 root.bind('<Return>', calculate)
 
 root.mainloop()
-
